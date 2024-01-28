@@ -11,6 +11,7 @@ import { setModal } from "~/store/modal/actions";
 import { useModal } from "~/store/modal/hooks";
 import Modal from "~/modals";
 import { useFavorites } from "~/store/favorites/hooks";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function BusinessPage() {
   const { modal } = useModal();
@@ -28,6 +29,17 @@ export default function BusinessPage() {
   ) : (
     <div className="flex flex-col gap-10">
       {modal && <Modal />}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: {
+            borderRadius: "10px",
+            background: "#333",
+            color: "#fff",
+            fontWeight: "bold",
+          },
+        }}
+      />
       <header
         style={{
           "--color": COLORS.at(data.data.color),
@@ -44,9 +56,15 @@ export default function BusinessPage() {
         />
       </div>
       <button
-        onClick={() => setModal("favorites")}
+        onClick={() => {
+          if (favorites.length > 0) {
+            setModal("favorites");
+          } else {
+            toast.error("You haven't chosen any favorite menu!");
+          }
+        }}
         type="button"
-        className="fixed bottom-5 right-5 bg-secondary p-4 rounded-[15px] z-10 shadow-primaryShadow flex items-center gap-x-4"
+        className="fixed bottom-5 right-5 bg-secondary p-4 rounded-[15px] z-10 shadow-primaryShadow flex items-center gap-x-4 outline-none"
       >
         <FaHeart className="text-red-600" size={22} />
         <p className="hidden md:block text-xl font-bold">

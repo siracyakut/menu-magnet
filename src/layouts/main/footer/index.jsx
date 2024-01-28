@@ -54,17 +54,37 @@ export default function Footer() {
               </h3>
               <nav>
                 <ul>
-                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
-                    Twitter
+                  <li>
+                    <Link
+                      to="/"
+                      className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
+                    >
+                      Twitter
+                    </Link>
                   </li>
-                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
-                    Facebook
+                  <li>
+                    <Link
+                      to="/"
+                      className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
+                    >
+                      Facebook
+                    </Link>
                   </li>
-                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
-                    Instagram
+                  <li>
+                    <Link
+                      to="/"
+                      className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
+                    >
+                      Instagram
+                    </Link>
                   </li>
-                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
-                    YouTube
+                  <li>
+                    <Link
+                      to="/"
+                      className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
+                    >
+                      YouTube
+                    </Link>
                   </li>
                 </ul>
               </nav>

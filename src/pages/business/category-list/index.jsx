@@ -62,7 +62,7 @@ export default function CategoryList({ businessId, color }) {
           <Disclosure defaultOpen={true}>
             {({ open }) => (
               <>
-                <Disclosure.Button className="flex items-center justify-between bg-white/10 border border-white/30 p-2.5 rounded-lg outline-none">
+                <Disclosure.Button className="flex items-center justify-between gap-x-4 bg-white/10 border border-white/30 p-2.5 rounded-lg outline-none">
                   <div className="flex flex-col gap-1.5">
                     <div className="flex items-center gap-x-3">
                       <FontAwesomeIcon
@@ -81,9 +81,9 @@ export default function CategoryList({ businessId, color }) {
                     </p>
                   </div>
                   {open ? (
-                    <FaChevronUp size={20} />
+                    <FaChevronUp className="flex-shrink-0" size={20} />
                   ) : (
-                    <FaChevronDown size={20} />
+                    <FaChevronDown className="flex-shrink-0" size={20} />
                   )}
                 </Disclosure.Button>
                 <Transition
@@ -100,14 +100,14 @@ export default function CategoryList({ businessId, color }) {
                         key={i}
                         className="flex flex-col gap-4 bg-white/10 border border-white/30 p-4 rounded-lg break-all"
                       >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-x-2 md:gap-x-4">
+                        <div className="flex items-center justify-between gap-x-2">
+                          <div className="flex items-center gap-x-4">
                             <p
                               style={{
                                 "--color": color,
                                 "--text": getHSL(color),
                               }}
-                              className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[var(--color)] text-[var(--text)] flex items-center justify-center font-extrabold"
+                              className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-[var(--color)] text-[var(--text)] flex items-center justify-center font-extrabold"
                             >
                               {i + 1}
                             </p>
@@ -118,11 +118,14 @@ export default function CategoryList({ businessId, color }) {
                           <FaHeart
                             onClick={() => handleFavorite(menu)}
                             size={24}
-                            className={classNames("text-white cursor-pointer", {
-                              "!text-red-600": favorites.find(
-                                (f) => f._id === menu._id,
-                              ),
-                            })}
+                            className={classNames(
+                              "flex-shrink-0 text-white cursor-pointer",
+                              {
+                                "!text-red-600": favorites.find(
+                                  (f) => f._id === menu._id,
+                                ),
+                              },
+                            )}
                           />
                         </div>
                         <p className="text-sm font-bold">{menu.description}</p>

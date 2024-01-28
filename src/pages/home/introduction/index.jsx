@@ -2,6 +2,11 @@ import { motion } from "framer-motion";
 import Button from "~/components/button";
 import CountUp from "react-countup";
 import { setModal } from "~/store/modal/actions";
+import { useQuery } from "react-query";
+import { getStatsService } from "~/services/stats";
+import Loading from "~/components/loading";
+import ErrorBox from "~/components/error-box";
+import classNames from "classnames";
 
 const itemMotion = {
   hidden: {
@@ -15,6 +20,10 @@ const itemMotion = {
 };
 
 export default function HomeIntroduction() {
+  const { data, error, isFetching } = useQuery(["stats"], () =>
+    getStatsService(),
+  );
+
   return (
     <>
       <motion.div
@@ -45,61 +54,75 @@ export default function HomeIntroduction() {
           </p>
         </div>
       </motion.div>
-      <motion.div variants={itemMotion} className="grid grid-cols-3 gap-2">
-        <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2 text-center">
-          <CountUp
-            className="text-4xl text-primary font-extrabold"
-            start={0}
-            end={290}
-          />
-          <p className="text-white text-lg font-bold">Menus Generated</p>
-        </div>
-        <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2 text-center">
-          <CountUp
-            className="text-4xl text-primary font-extrabold"
-            start={0}
-            end={436}
-          />
-          <p className="text-white text-lg font-bold">Customers</p>
-        </div>
-        <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2 text-center">
-          <div className="flex items-center gap-x-1 md:gap-x-2">
-            <CountUp
-              className="text-4xl text-primary font-extrabold"
-              start={0}
-              end={5}
-              decimals={2}
-            />
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="flex-shrink-0 h-5 w-5 md:h-8 md:w-8"
-            >
-              <path d="M7.62109 12.2614L12.2175 15.0355L10.9977 9.80698L15.0586 6.28905L9.71103 5.83536L7.62109 0.904297L5.53116 5.83536L0.183594 6.28905L4.24447 9.80698L3.02472 15.0355L7.62109 12.2614Z"></path>
-              <path
-                d="M7.62109 12.2614L12.2175 15.0355L10.9977 9.80698L15.0586 6.28905L9.71103 5.83536L7.62109 0.904297L5.53116 5.83536L0.183594 6.28905L4.24447 9.80698L3.02472 15.0355L7.62109 12.2614Z"
-                fill="url(#paint0_linear_3667_3571)"
+      <motion.div
+        variants={itemMotion}
+        className={classNames("", {
+          "w-full flex items-center justify-center": isFetching,
+          "grid grid-cols-3 gap-2": !isFetching,
+        })}
+      >
+        {isFetching ? (
+          <Loading inline={true} />
+        ) : error ? (
+          <ErrorBox>{error.data}</ErrorBox>
+        ) : (
+          <>
+            <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2 text-center">
+              <CountUp
+                className="text-4xl text-primary font-extrabold"
+                start={0}
+                end={data.data.menuCount}
               />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_3667_3571"
-                  x1="7.62109"
-                  y1="0.904297"
-                  x2="7.62109"
-                  y2="15.0355"
-                  gradientUnits="userSpaceOnUse"
+              <p className="text-white text-lg font-bold">Menus Generated</p>
+            </div>
+            <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2 text-center">
+              <CountUp
+                className="text-4xl text-primary font-extrabold"
+                start={0}
+                end={data.data.userCount}
+              />
+              <p className="text-white text-lg font-bold">Customers</p>
+            </div>
+            <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2 text-center">
+              <div className="flex items-center gap-x-1 md:gap-x-2">
+                <CountUp
+                  className="text-4xl text-primary font-extrabold"
+                  start={0}
+                  end={5}
+                  decimals={2}
+                />
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="flex-shrink-0 h-5 w-5 md:h-8 md:w-8"
                 >
-                  <stop stopColor="#ff4544"></stop>
-                  <stop offset="1" stopColor="#ff4544"></stop>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <p className="text-white text-lg font-bold">Trusted</p>
-        </div>
+                  <path d="M7.62109 12.2614L12.2175 15.0355L10.9977 9.80698L15.0586 6.28905L9.71103 5.83536L7.62109 0.904297L5.53116 5.83536L0.183594 6.28905L4.24447 9.80698L3.02472 15.0355L7.62109 12.2614Z"></path>
+                  <path
+                    d="M7.62109 12.2614L12.2175 15.0355L10.9977 9.80698L15.0586 6.28905L9.71103 5.83536L7.62109 0.904297L5.53116 5.83536L0.183594 6.28905L4.24447 9.80698L3.02472 15.0355L7.62109 12.2614Z"
+                    fill="url(#paint0_linear_3667_3571)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_3667_3571"
+                      x1="7.62109"
+                      y1="0.904297"
+                      x2="7.62109"
+                      y2="15.0355"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stopColor="#ff4544"></stop>
+                      <stop offset="1" stopColor="#ff4544"></stop>
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <p className="text-white text-lg font-bold">Trusted</p>
+            </div>
+          </>
+        )}
       </motion.div>
       <motion.div variants={itemMotion} className="grid md:grid-cols-2 gap-8">
         <div className="bg-secondary p-5 rounded-[15px] flex flex-col items-center justify-center gap-2">
