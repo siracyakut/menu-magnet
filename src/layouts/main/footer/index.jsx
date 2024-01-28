@@ -28,15 +28,22 @@ export default function Footer() {
               <nav>
                 <ul>
                   {MENU.map((menuItem, index) => (
-                    <li
-                      key={index}
-                      className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
-                    >
-                      {menuItem.name}
+                    <li key={index}>
+                      <Link
+                        to={menuItem.path}
+                        className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
+                      >
+                        {menuItem.name}
+                      </Link>
                     </li>
                   ))}
-                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
-                    Terms
+                  <li>
+                    <Link
+                      to="/"
+                      className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all"
+                    >
+                      Terms
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -45,6 +52,22 @@ export default function Footer() {
               <h3 className="mb-[11px] font-extrabold text-[16px] leading-[19px]">
                 SOCIAL
               </h3>
+              <nav>
+                <ul>
+                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
+                    Twitter
+                  </li>
+                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
+                    Facebook
+                  </li>
+                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
+                    Instagram
+                  </li>
+                  <li className="mb-[10px] font-bold text-[14px] leading-[16px] cursor-pointer hover:text-primary transition-all">
+                    YouTube
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

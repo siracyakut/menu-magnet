@@ -4,10 +4,6 @@ const MENU = [
     path: "/",
   },
   {
-    name: "Products",
-    path: "/products",
-  },
-  {
     name: "Contact",
     path: "/contact",
   },

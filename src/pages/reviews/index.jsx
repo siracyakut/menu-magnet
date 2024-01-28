@@ -21,9 +21,11 @@ export default function Reviews() {
         animate="visible"
         className="grid place-items-center md:grid-cols-2 lg:grid-cols-3 gap-5"
       >
-        {REVIEWS.map((item, index) => (
-          <ReviewItem key={index} item={item} />
-        ))}
+        {REVIEWS.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)).map(
+          (item, index) => (
+            <ReviewItem key={index} item={item} />
+          ),
+        )}
       </motion.div>
     </>
   );
