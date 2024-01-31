@@ -17,6 +17,7 @@ export default function RegisterModal() {
     onSuccess: (data) => {
       setUser(data.data);
       closeModal();
+      toast.success("You have successfully registered.");
       setTimeout(() => setModal("business"), 300);
     },
     onError: (error) => toast.error(error.data),

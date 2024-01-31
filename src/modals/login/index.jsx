@@ -17,6 +17,7 @@ export default function LoginModal() {
     onSuccess: (data) => {
       setUser(data.data);
       closeModal();
+      toast.success("You have successfully logged in.");
       if (!data.data.businessId) {
         setTimeout(() => setModal("business"), 300);
       }

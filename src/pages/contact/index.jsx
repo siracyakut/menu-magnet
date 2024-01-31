@@ -3,8 +3,17 @@ import Input from "~/components/input";
 import Button from "~/components/button";
 import { motion } from "framer-motion";
 import { contactSchema } from "~/validations";
+import { useMutation } from "react-query";
+import { createTicketService } from "~/services/ticket";
+import toast from "react-hot-toast";
 
 export default function Contact() {
+  const mutation = useMutation({
+    mutationFn: (data) => createTicketService(data),
+    onSuccess: () => toast.success("Your ticket has been sent."),
+    onError: (error) => toast.error(error.data),
+  });
+
   return (
     <motion.div
       initial={{ opacity: 0, translateY: 20 }}
@@ -24,7 +33,11 @@ export default function Contact() {
           message: "",
         }}
         validationSchema={contactSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values, formikHelpers) =>
+          mutation.mutate(values, {
+            onSuccess: () => formikHelpers.resetForm(),
+          })
+        }
       >
         <Form className="grid gap-y-[17px]">
           <Input
@@ -48,7 +61,12 @@ export default function Contact() {
             label="Message"
             placeholder="I'd like to ask about..."
           />
-          <Button type="submit" component="button" variant="primary">
+          <Button
+            disabled={mutation.isLoading}
+            type="submit"
+            component="button"
+            variant="primary"
+          >
             Create Ticket
           </Button>
         </Form>

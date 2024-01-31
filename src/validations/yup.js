@@ -7,7 +7,7 @@ Yup.setLocale({
   string: {
     email: "Enter a valid email address.",
     min: "This field must be a minimum of ${min} characters long.",
-    max: "This field must be a maximum of ${min} characters long.",
+    max: "This field must be a maximum of ${max} characters long.",
     url: "Enter a valid URL.",
   },
   boolean: {
